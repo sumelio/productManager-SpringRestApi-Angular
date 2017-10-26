@@ -9,5 +9,7 @@ import co.beitech.productManager.model.OrderCustomer;
 public interface CustomerDAO {
 	public List<Customer> getCustomers();
 	public Customer getCustomerById(int customerId);
+	public boolean isEmptyCustomerById(int customerId);
+	
 
 }

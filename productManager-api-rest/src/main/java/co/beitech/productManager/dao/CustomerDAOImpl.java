@@ -28,10 +28,19 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return em.createNamedQuery("Customer.findAll", Customer.class).getResultList();
 	}
 	
+	public boolean isEmptyCustomerById(int customerId) {
+		return em.createNamedQuery("Customer.findById", Customer.class).setParameter("id", customerId)
+				.getResultList().isEmpty();
+
+	}
+	 
+	
 	public Customer getCustomerById(int customerId) {
 		return em.createNamedQuery("Customer.findById", Customer.class).setParameter("id", customerId)
 				.getSingleResult();
 
 	}
+	
+	
 
 }

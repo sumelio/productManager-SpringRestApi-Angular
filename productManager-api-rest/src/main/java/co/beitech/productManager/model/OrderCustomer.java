@@ -1,49 +1,61 @@
 package co.beitech.productManager.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
- 
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * The persistent class for the order_customer database table.
  * 
  */
 @Entity
-@Table(name="order_customer")
-@NamedQuery(name="OrderCustomer.findAll", query="SELECT o FROM OrderCustomer o")
+@Table(name = "order_customer")
+@NamedQueries({ @NamedQuery(name = "OrderCustomer.findAll", query = "SELECT o FROM OrderCustomer o"),
+		@NamedQuery(name = "OrderCustomer.findByCustomAndDate", query = "select o from OrderCustomer o where o.customer.id = :customerId and o.orderTime  BETWEEN :stDate AND :edDate  ") })
 public class OrderCustomer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="order_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "order_id")
 	private int orderId;
 
-	@Column(name="delivery_address")
+	@Column(name = "delivery_address")
 	private String deliveryAddress;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="order_time")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+	@Column(name = "order_time")
 	private Date orderTime;
 
 	@ManyToOne
-	@JoinColumn(name="customer_id")
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
-	
 
- 
- 
-	
-	@OneToMany(mappedBy="orderCustomer")
+	@OneToMany(mappedBy = "orderCustomer")
 	private List<OrderDetail> orderDetails;
 	
-	
-	
+	@Transient
+	private BigDecimal totalPrice;
 
 	public OrderCustomer() {
 	}
@@ -64,6 +76,7 @@ public class OrderCustomer implements Serializable {
 		this.deliveryAddress = deliveryAddress;
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
 	public Date getOrderTime() {
 		return this.orderTime;
 	}
@@ -81,7 +94,7 @@ public class OrderCustomer implements Serializable {
 	}
 
 	public List<OrderDetail> getOrderDetails() {
-		if(this.orderDetails == null) {
+		if (this.orderDetails == null) {
 			this.orderDetails = new ArrayList<OrderDetail>();
 		}
 		return this.orderDetails;
@@ -104,5 +117,28 @@ public class OrderCustomer implements Serializable {
 
 		return orderDetail;
 	}
+
+	/**
+	 * Sum of the all prices orderDetail
+	 * 
+	 * @return
+	 */
+	
+	public BigDecimal getTotalPrice() {
+		BigDecimal totalPrice = this.getOrderDetails().
+				stream()
+				   .map(OrderDetail::getPrice)
+				   .reduce(
+				       BigDecimal.ZERO,
+				       (a, b) -> a.add( b));
+		
+		return totalPrice;
+	}
+
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	
 
 }

@@ -1,5 +1,8 @@
 package co.beitech.productManager.dao;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -33,8 +36,8 @@ public class OrderCustomerDAOImpl implements OrderCustomerDAO {
 	public void saveOrderCustomer(OrderCustomer orderCustomer) {
 
 		em.persist(orderCustomer);
+		em.flush();
 		orderCustomer.getOrderDetails().forEach(orderDetail -> {
-			em.flush();
 			em.persist(orderDetail);
 		});
 
@@ -44,9 +47,19 @@ public class OrderCustomerDAOImpl implements OrderCustomerDAO {
 	 * Get all Order
 	 */
 	public List<OrderCustomer> getOrderCustomers() {
-		
-		
 		return em.createNamedQuery("OrderCustomer.findAll", OrderCustomer.class).getResultList();
+	}
+
+	/**
+	 * Get all Order by Date
+	 */
+	public List<OrderCustomer> getOrderCustomers(int customerId, Date frmDate, Date enDate) {
+		
+	 	
+		
+		return em.createNamedQuery("OrderCustomer.findByCustomAndDate", OrderCustomer.class)
+				.setParameter("customerId", new Integer(customerId)).setParameter("stDate", frmDate)
+				.setParameter("edDate",  enDate ).getResultList();
 	}
 
 }

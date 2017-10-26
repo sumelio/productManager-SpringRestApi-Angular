@@ -7,11 +7,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.Properties;
 
@@ -62,5 +65,7 @@ public class ApiRestConfiguration {
 		hibernateTransactionManager.setSessionFactory(getSessionFactory().getObject());
 		return hibernateTransactionManager;
 	}
+	
+ 
 
 }

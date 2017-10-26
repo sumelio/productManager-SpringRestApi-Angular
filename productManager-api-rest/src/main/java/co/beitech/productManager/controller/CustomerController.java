@@ -15,6 +15,7 @@ import co.beitech.productManager.service.CustomerService;
 
  
 /**
+ * This POJO is a customer controller for API REST
  * 
  * @author falemus
  *
@@ -31,7 +32,7 @@ public class CustomerController {
 	
 
 	/**
-	 * Get all customers
+	 * This method gets all customers
 	 * @return
 	 */
 	@GetMapping("/customer")

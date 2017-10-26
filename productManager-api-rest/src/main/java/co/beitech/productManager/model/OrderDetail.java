@@ -26,8 +26,8 @@ public class OrderDetail implements Serializable {
 
 	private BigDecimal price;
 
-	@Column(name="producto_description")
-	private String productoDescription;
+	@Column(name="product_description")
+	private String productDescription;
 
 
 	@JsonIgnore
@@ -55,12 +55,12 @@ public class OrderDetail implements Serializable {
 		this.price = price;
 	}
 
-	public String getProductoDescription() {
-		return this.productoDescription;
+	public String getProductDescription() {
+		return this.productDescription;
 	}
 
-	public void setProductoDescription(String productoDescription) {
-		this.productoDescription = productoDescription;
+	public void setProductescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 
 	public OrderCustomer getOrderCustomer() {
