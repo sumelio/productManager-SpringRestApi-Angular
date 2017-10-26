@@ -3,7 +3,8 @@ package co.beitech.productManager.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
- 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.math.BigDecimal;
 
@@ -29,7 +30,7 @@ public class OrderDetail implements Serializable {
 	private String productoDescription;
 
 
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="order_id")
 	private OrderCustomer orderCustomer;

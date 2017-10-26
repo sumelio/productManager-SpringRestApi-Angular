@@ -44,6 +44,8 @@ public class OrderCustomerDAOImpl implements OrderCustomerDAO {
 	 * Get all Order
 	 */
 	public List<OrderCustomer> getOrderCustomers() {
+		
+		
 		return em.createNamedQuery("OrderCustomer.findAll", OrderCustomer.class).getResultList();
 	}
 
