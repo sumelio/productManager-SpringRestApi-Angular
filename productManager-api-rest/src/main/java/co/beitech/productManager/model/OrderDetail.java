@@ -33,7 +33,7 @@ public class OrderDetail implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="order_id")
-	private OrderCustomer orderCustomer;
+	private Order order;
 	
 
 	public OrderDetail() {
@@ -63,12 +63,12 @@ public class OrderDetail implements Serializable {
 		this.productDescription = productDescription;
 	}
 
-	public OrderCustomer getOrderCustomer() {
-		return this.orderCustomer;
+	public Order getOrder() {
+		return this.order;
 	}
 
-	public void setOrderCustomer(OrderCustomer orderCustomer) {
-		this.orderCustomer = orderCustomer;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 }

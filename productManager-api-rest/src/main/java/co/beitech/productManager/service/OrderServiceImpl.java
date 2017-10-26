@@ -16,7 +16,7 @@ import co.beitech.productManager.dao.CustomerDAO;
 import co.beitech.productManager.dao.OrderCustomerDAO;
 import co.beitech.productManager.domain.Response;
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
 import co.beitech.productManager.model.OrderDetail;
 import co.beitech.productManager.model.Product;
 
@@ -46,14 +46,14 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * This method gets all order
 	 */
-	public List<OrderCustomer> getOrderCustomers() {
+	public List<Order> getOrderCustomers() {
 		return _orderCustomerDao.getOrderCustomers();
 	}
 
 	/**
 	 * This method gets orders by date
 	 */
-	public List<OrderCustomer> getOrderCustomers(int customerId, Date start, Date end) {
+	public List<Order> getOrderCustomers(int customerId, Date start, Date end) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(end);
 		c.add(Calendar.DATE, 1);
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 	 * by customer Third: Create order and order detail.
 	 * 
 	 */
-	public Response saveOrderCustomers(OrderCustomer orderCustomer, List<Product> products) {
+	public Response saveOrderCustomers(Order orderCustomer, List<Product> products) {
 
 		try {
             int maxProduct = new Integer(env.getProperty(MAX_PRODUCT));
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
 							.multiply(new BigDecimal(countProductById));
 					orderDetail.setPrice(totalOrderDetail);
 					orderDetail.setProductescription(countProductById + " X " + availableProduct.getName());
-					orderDetail.setOrderCustomer(orderCustomer);
+					orderDetail.setOrder(orderCustomer);
 					orderCustomer.getOrderDetails().add(orderDetail);
 				}
 			});

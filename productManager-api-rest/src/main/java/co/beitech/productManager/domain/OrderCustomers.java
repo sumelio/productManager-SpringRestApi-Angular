@@ -3,16 +3,16 @@ package co.beitech.productManager.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
 import co.beitech.productManager.model.Product;
 
 public class OrderCustomers {
-	private OrderCustomer orderCustomer;
+	private Order orderCustomer;
 	private List<Product> products;
-	public OrderCustomer getOrderCustomer() {
+	public Order getOrderCustomer() {
 		return orderCustomer;
 	}
-	public void setOrderCustomer(OrderCustomer orderCustomer) {
+	public void setOrderCustomer(Order orderCustomer) {
 		this.orderCustomer = orderCustomer;
 	}
 	public List<Product> getProducts() {

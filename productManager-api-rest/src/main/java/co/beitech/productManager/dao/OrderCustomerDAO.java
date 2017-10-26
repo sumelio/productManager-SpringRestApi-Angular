@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
  
 
 public interface OrderCustomerDAO {
-	public void saveOrderCustomer(OrderCustomer orderCustomer);
+	public void saveOrderCustomer(Order orderCustomer);
 	
-	public List<OrderCustomer> getOrderCustomers();
-	public List<OrderCustomer> getOrderCustomers(int customerId, Date start, Date end);
+	public List<Order> getOrderCustomers();
+	public List<Order> getOrderCustomers(int customerId, Date start, Date end);
 
 }

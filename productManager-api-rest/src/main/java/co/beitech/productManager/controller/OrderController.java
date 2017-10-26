@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.beitech.productManager.domain.OrderCustomers;
 import co.beitech.productManager.domain.Response;
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
 import co.beitech.productManager.model.OrderDetail;
 import co.beitech.productManager.model.Product;
 import co.beitech.productManager.service.CustomerService;
@@ -70,10 +70,10 @@ public class OrderController {
 	 * @return
 	 */
 	@GetMapping(path = "/order", produces = "application/json")
-	public ResponseEntity<List<OrderCustomer>> getOrder() {
-		ResponseEntity<List<OrderCustomer>> response = null;
+	public ResponseEntity<List<Order>> getOrder() {
+		ResponseEntity<List<Order>> response = null;
 
-		List<OrderCustomer> listOrder = orderService.getOrderCustomers();
+		List<Order> listOrder = orderService.getOrderCustomers();
 		if (listOrder.isEmpty()) {
 			response = new ResponseEntity<>(orderService.getOrderCustomers(), HttpStatus.OK);
 		} else {
@@ -92,18 +92,18 @@ public class OrderController {
 	 * @throws ParseException
 	 */
 	@GetMapping(value = "/order/customer", produces = "application/json")
-	public ResponseEntity<List<OrderCustomer>> getOrder(@RequestParam(value = "customerId") int customerId,
+	public ResponseEntity<List<Order>> getOrder(@RequestParam(value = "customerId") int customerId,
 			@RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
 			throws ParseException {
 
-		ResponseEntity<List<OrderCustomer>> responseEntity = null;
+		ResponseEntity<List<Order>> responseEntity = null;
 
-		List<OrderCustomer> listOrder = orderService.getOrderCustomers(customerId, startDate, endDate);
+		List<Order> listOrder = orderService.getOrderCustomers(customerId, startDate, endDate);
 		if ( ! listOrder.isEmpty() ) {
-			responseEntity = new ResponseEntity<List<OrderCustomer>>(listOrder, HttpStatus.OK);
+			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.OK);
 		} else {
-			responseEntity = new ResponseEntity<List<OrderCustomer>>(listOrder, HttpStatus.NOT_FOUND);
+			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.NOT_FOUND);
 		}
 
 		return responseEntity;

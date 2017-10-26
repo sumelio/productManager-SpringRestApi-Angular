@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import co.beitech.productManager.controller.CustomerController;
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
 
 @Repository
 @Transactional
@@ -33,7 +33,7 @@ public class OrderCustomerDAOImpl implements OrderCustomerDAO {
 	/**
 	 * Save all Order and OrderDetails
 	 */
-	public void saveOrderCustomer(OrderCustomer orderCustomer) {
+	public void saveOrderCustomer(Order orderCustomer) {
 
 		em.persist(orderCustomer);
 		em.flush();
@@ -46,18 +46,18 @@ public class OrderCustomerDAOImpl implements OrderCustomerDAO {
 	/**
 	 * Get all Order
 	 */
-	public List<OrderCustomer> getOrderCustomers() {
-		return em.createNamedQuery("OrderCustomer.findAll", OrderCustomer.class).getResultList();
+	public List<Order> getOrderCustomers() {
+		return em.createNamedQuery("OrderCustomer.findAll", Order.class).getResultList();
 	}
 
 	/**
 	 * Get all Order by Date
 	 */
-	public List<OrderCustomer> getOrderCustomers(int customerId, Date frmDate, Date enDate) {
+	public List<Order> getOrderCustomers(int customerId, Date frmDate, Date enDate) {
 		
 	 	
 		
-		return em.createNamedQuery("OrderCustomer.findByCustomAndDate", OrderCustomer.class)
+		return em.createNamedQuery("OrderCustomer.findByCustomAndDate", Order.class)
 				.setParameter("customerId", new Integer(customerId)).setParameter("stDate", frmDate)
 				.setParameter("edDate",  enDate ).getResultList();
 	}

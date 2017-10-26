@@ -3,7 +3,7 @@ package co.beitech.productManager.dao;
 import java.util.List;
 
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.OrderCustomer;
+import co.beitech.productManager.model.Order;
  
 
 public interface CustomerDAO {

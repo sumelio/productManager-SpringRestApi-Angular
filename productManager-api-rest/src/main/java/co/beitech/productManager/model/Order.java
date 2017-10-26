@@ -28,10 +28,10 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 
  */
 @Entity
-@Table(name = "order_customer")
-@NamedQueries({ @NamedQuery(name = "OrderCustomer.findAll", query = "SELECT o FROM OrderCustomer o"),
-		@NamedQuery(name = "OrderCustomer.findByCustomAndDate", query = "select o from OrderCustomer o where o.customer.id = :customerId and o.orderTime  BETWEEN :stDate AND :edDate  ") })
-public class OrderCustomer implements Serializable {
+@Table(name = "order_")
+@NamedQueries({ @NamedQuery(name = "OrderCustomer.findAll", query = "SELECT o FROM Order o"),
+		@NamedQuery(name = "OrderCustomer.findByCustomAndDate", query = "select o from Order o where o.customer.id = :customerId and o.orderTime  BETWEEN :stDate AND :edDate  ") })
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -51,13 +51,13 @@ public class OrderCustomer implements Serializable {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@OneToMany(mappedBy = "orderCustomer")
+	@OneToMany(mappedBy = "order")
 	private List<OrderDetail> orderDetails;
 	
 	@Transient
 	private BigDecimal totalPrice;
 
-	public OrderCustomer() {
+	public Order() {
 	}
 
 	public int getOrderId() {
@@ -106,14 +106,14 @@ public class OrderCustomer implements Serializable {
 
 	public OrderDetail addOrderDetail(OrderDetail orderDetail) {
 		getOrderDetails().add(orderDetail);
-		orderDetail.setOrderCustomer(this);
+		orderDetail.setOrder(this);
 
 		return orderDetail;
 	}
 
 	public OrderDetail removeOrderDetail(OrderDetail orderDetail) {
 		getOrderDetails().remove(orderDetail);
-		orderDetail.setOrderCustomer(null);
+		orderDetail.setOrder(null);
 
 		return orderDetail;
 	}
