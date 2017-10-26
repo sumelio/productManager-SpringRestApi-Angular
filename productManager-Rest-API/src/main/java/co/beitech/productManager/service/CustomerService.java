@@ -2,7 +2,7 @@ package co.beitech.productManager.service;
 
 import java.util.List;
 
-import co.beitech.productManager.modal.Customer;
+import co.beitech.productManager.model.Customer;
 
 public interface CustomerService  {
 	

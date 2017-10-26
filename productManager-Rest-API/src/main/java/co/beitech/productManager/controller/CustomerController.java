@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.beitech.productManager.modal.Customer;
+import co.beitech.productManager.model.Customer;
 import co.beitech.productManager.service.CustomerService;
 
  

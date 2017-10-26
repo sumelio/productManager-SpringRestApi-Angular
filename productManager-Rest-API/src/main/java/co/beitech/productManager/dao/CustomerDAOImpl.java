@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import co.beitech.productManager.modal.Customer; 
+import co.beitech.productManager.model.Customer; 
 
 @Repository
 @Transactional
@@ -26,6 +26,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	public List<Customer> getCustomers() {
 		return em.createNamedQuery("Customer.findAll", Customer.class).getResultList();
+	}
+	
+	public Customer getCustomerById(int customerId) {
+		return em.createNamedQuery("Customer.findById", Customer.class).setParameter("id", customerId)
+				.getSingleResult();
+
 	}
 
 }

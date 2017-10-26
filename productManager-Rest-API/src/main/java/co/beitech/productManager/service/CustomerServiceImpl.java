@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.beitech.productManager.dao.CustomerDAO;
-import co.beitech.productManager.modal.Customer;
+import co.beitech.productManager.model.Customer;
 
 
 @Service("customerService")
@@ -24,5 +24,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<Customer> getCustomers(){
 		return _customerDao.getCustomers();
 	}
+	
+ 
 	
 }
