@@ -2,9 +2,10 @@
 <html ng-app="beitechApp">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Beitech SAS Test Product Orders</title>
+	<title>ProductManager</title>
 	<link href='./css/style.css' rel="stylesheet" type="text/css"></link>
-	<link href="./css/bootstrap.min.css" rel="stylesheet"  >
+	<link href='./css/sweetalert.css' rel="stylesheet" type="text/css"></link>
+
 
 </head>
 <body>
@@ -23,8 +24,7 @@
 					<section class="sectionFilter">	
 	 
 				<button ng-click="findOrders()" class="btn-panel-big">Search</button>
-			</section>
-			<toast></toast>
+			</section> 
 			<h2>Order List</h2>
 			<section class="sectionTable">	
 			<table class="tableOrder" >
@@ -58,7 +58,9 @@
 
 	<script type="text/javascript" src="./js/beitech_Utility.js"></script> 
 	<script type="text/javascript" src="./js/beitechApp.js"></script>
- 
+	<script type="text/javascript" src="./js/sweetalert.min.js"></script>
+ 	<link href="./css/bootstrap.min.css" rel="stylesheet"  />
+ 	
 
 	</body>
 	</html>

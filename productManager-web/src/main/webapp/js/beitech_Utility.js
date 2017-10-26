@@ -1,3 +1,13 @@
+/**
+ * Utility functions javascript
+ * 
+ */
+
+
+/**
+ *  THis function format a date with prototype.yyymmdd.
+ */
+
 Date.prototype.yyyymmdd = function(month) {
 	var mm = this.getMonth() + month; // getMonth() is zero-based
 	var dd = this.getDate();
@@ -5,6 +15,9 @@ Date.prototype.yyyymmdd = function(month) {
   };
 
 
+  /**
+   *  THis function return date in last month.
+   */  
 function monthLast(dateNow){
 
      

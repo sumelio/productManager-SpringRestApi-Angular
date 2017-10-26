@@ -1,8 +1,6 @@
-
-
-
-
-
+/**
+ *  Angular Module javascript
+ */
 var productManagerModule = angular.module('beitechApp', ['ngAnimate']  );
 
 productManagerModule.controller('beitechController', function ($scope,$http) {
@@ -31,19 +29,38 @@ productManagerModule.controller('beitechController', function ($scope,$http) {
 	//get all Orders
 	$scope.findOrders = function findOrders() {
 	  
-	 	if( $scope.customerSelect=="" ){
-			alert("Insufficient Data! Please provide values for Customer name");
+	 	if( $scope.customerSelect > 0 ){
+	 		 $http.get(urlBase + '/customer/'+$scope.customerSelect+'/order?startDate='+$scope.beginDate+'&endDate='+$scope.endDate).
+			  success(function(data) { 
+				 $scope.listOrders = data;  
+			 
+				}).
+				error(function(data) { 
+					$scope.listOrders = null;  
+					 swal({
+			              title: 'Alert',
+			              text: 'Order not found',
+			              showCancelButton: true,
+			              confirmButtonText: 'OK' ,
+			              closeOnConfirm: true
+			            }, function (ok) {
+			              
+			            })
+			            
+			            
+				
+				   });
+		
+	            
 		}
 		else{
-		 $http.get(urlBase + '/order/customer?customerId='+$scope.customerSelect+'&startDate='+$scope.beginDate+'&endDate='+$scope.endDate).
-		  success(function(data) { 
-			 $scope.listOrders = data;  
-		 
-			}).
-			error(function(data) { 
-				$scope.listOrders = null;  
-			
-			   });
+			swal({
+	              title: 'Validate',
+	              text: 'Insufficient Data! Please provide values for Customer name',
+	              showCancelButton: true,
+	              confirmButtonText: 'OK',
+	              closeOnConfirm: true
+	            })
 		}
 	};
 		

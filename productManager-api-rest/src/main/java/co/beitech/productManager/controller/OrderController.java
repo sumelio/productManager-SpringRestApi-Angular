@@ -42,18 +42,41 @@ public class OrderController {
 	 * Service has business logical
 	 */
 	@Autowired
-	private OrderService orderService;
-
-	@Autowired
-	private CustomerService customerService;
+	private OrderService orderService; 
 
 	/**
-	 * This method creates an order
+	 * This method create an order
 	 * 
 	 * @param orderCustomers
 	 *            This object contains an object Order and a list of Products
+	 *            Example:
+	 *            {
+	 *              "orderCustomer": { 
+	 *                "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
+	 *                "customer": {
+	 *                  "customerId": 1
+	 *                }
+	 *              },
+	 *              "products": [
+	 *                {
+	 *                  "productId": 1
+	 *                }, 
+	 *                    {
+	 *                  "productId": 1
+	 *                },
+	 *                    {
+	 *                  "productId": 2
+	 *                }
+	 *              ]
+	 *            }
 	 * 
-	 * @return ResponseEntity
+	 * @return ResponseEntity Return code and description. 
+	 *    Example:
+	 *    
+	 *    {
+	 *        "description": "OK",
+	 *        "code": 200
+	 *    }
 	 */
 	@PostMapping(path = "/order", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Response> createOrder(@RequestBody OrderCustomers orderCustomers) {
@@ -65,48 +88,7 @@ public class OrderController {
 
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	@GetMapping(path = "/order", produces = "application/json")
-	public ResponseEntity<List<Order>> getOrder() {
-		ResponseEntity<List<Order>> response = null;
-
-		List<Order> listOrder = orderService.getOrderCustomers();
-		if (listOrder.isEmpty()) {
-			response = new ResponseEntity<>(orderService.getOrderCustomers(), HttpStatus.OK);
-		} else {
-			response = new ResponseEntity<>(orderService.getOrderCustomers(), HttpStatus.NOT_FOUND);
-		}
-
-		return response;
-	}
-
-	/**
-	 * 
-	 * @param customerId
-	 * @param startDate
-	 * @param endDate
-	 * @return
-	 * @throws ParseException
-	 */
-	@GetMapping(value = "/order/customer", produces = "application/json")
-	public ResponseEntity<List<Order>> getOrder(@RequestParam(value = "customerId") int customerId,
-			@RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-			@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
-			throws ParseException {
-
-		ResponseEntity<List<Order>> responseEntity = null;
-
-		List<Order> listOrder = orderService.getOrderCustomers(customerId, startDate, endDate);
-		if ( ! listOrder.isEmpty() ) {
-			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.OK);
-		} else {
-			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.NOT_FOUND);
-		}
-
-		return responseEntity;
-	}
+ 
+	
 
 }
