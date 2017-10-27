@@ -34,6 +34,36 @@ Para mas detalle ver ejemplos en la parte inferior y ver archivo PDF de la docum
 La aplicación esta desplegada en una instancia de EC2 Amazon y esta es la URL:
 [http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
+## Instalación y despliegue 
+### Generación de WAR
+Los proyectos usan Maven para la gestión de librerías o dependencias por lo tanto para crear el war es necesario ejecutar el comando:
+
+```
+mvn install
+```
+Para el caso del proyecto API REST:
+
+```
+{LOCAL_DIRECTORY}/productManager-SpringRestApi-Angular/productManager-api-rest$ mvn install
+
+```
+Es necesario configurar las siguientes propiedades:
+
+```
+datasource.driverClassName=com.mysql.jdbc.Driver
+datasource.url=jdbc:mysql://[host_name]:[port]/beitech_db
+datasource.username=[USER]
+datasource.password=[PASSWORD]
+
+```
+
+### Schema de base de datos Mysql
+Tambíen es necesario crear la base de datos y la configuración de la conexión esta en el properites:
+
+```
+{RELATIVE_DIRECTORY}/productManager-api-rest/src/main/resources/ProductManager.properties
+```
+Los scripts están al final de esta página.
 
 
 ## Diagrama entidad relación
@@ -285,8 +315,10 @@ create database beitech_db;
  
 use beitech_db;
  
-CREATE USER 'beithecUser'@'localhost' IDENTIFIED BY 'beithecUser-2017';
-
+/** Esto es un ejemplo del usuario que debe corresponder al archivo properties
+/productManager-api-rest/src/main/resources/ProductManager.properties
+*/ 
+CREATE USER 'beithecUser'@'localhost' IDENTIFIED BY 'TEST-2017';
 GRANT ALL PRIVILEGES ON beitech_db. * TO 'beithecUser'@'localhost';
 
 CREATE TABLE IF NOT EXISTS `product` (
