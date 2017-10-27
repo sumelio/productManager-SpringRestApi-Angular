@@ -35,7 +35,7 @@ productManagerModule
 											+ $scope.beginDate + '&endDate='
 											+ $scope.endDate).success(
 									function(data) {
-										$scope.listOrders = data;
+										$scope.listOrders = data.orders;
 
 									}).error(
 									function(data) {

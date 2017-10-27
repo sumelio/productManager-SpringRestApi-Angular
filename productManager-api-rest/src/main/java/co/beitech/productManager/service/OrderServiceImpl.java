@@ -38,30 +38,16 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Autowired
-	private OrderDAO _orderCustomerDao;
+	private OrderDAO _orderDAO;
 
 	@Autowired
 	private CustomerDAO _customerDao;
 
-	/**
-	 * This method gets all order
-	 */
-	public List<Order> getOrders() {
-		return _orderCustomerDao.getOrderCustomers();
-	}
+ 
 
 	/**
-	 * This method gets orders by date
-	 */
-	public List<Order> getOrderByCustomerAndDate(int customerId, Date start, Date end) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(end);
-		c.add(Calendar.DATE, 1);
-		return _orderCustomerDao.getOrderCustomers(customerId, start, c.getTime());
-	}
-
-	/**
-	 * This method create a order. Steps for create a order are the following:
+	 * This method creates an order. 
+	 * Steps to create an order are as follows:
 	 *     First: Validate the maximum products 
 	 *     Second: Validate the available products by customer 
 	 *     Third: Create the order and the orders detail.
@@ -75,20 +61,20 @@ public class OrderServiceImpl implements OrderService {
 			
             // Validate max 5 products
 			if (products.size() > maxProduct) {
-				throw new Exception("La cantidad de productos debe ser menor o igual a " + maxProduct);
+				throw new Exception("The amount of products must be less or equal to " + maxProduct);
 			}
 
 			// validate exists customer
 			int customerId = orderCustomer.getCustomer().getCustomerId();
 
-			if (!_customerDao.isExistsCustomerById(customerId)) {
+			if (_customerDao.isExistsCustomerById(customerId)) {
 				Customer customer = _customerDao.getCustomerById(customerId);
 				orderCustomer.setCustomer(customer);
 			} else {
-				throw new Exception("EL cliente con Id " + customerId + " no existe");
+				throw new Exception("The customer with ID " + customerId + " does not exist");
 			}
 
-			List<Product> listAvailableProduct = orderCustomer.getCustomer().getProducts();
+			List<Product> listAvailableProduct = orderCustomer.getCustomer().getAvailableProducts();
 
 			// Validate: Available products by Customer
 			for (Product product : products) {
@@ -97,8 +83,8 @@ public class OrderServiceImpl implements OrderService {
 				long countAvailableProducts = listAvailableProduct.stream()
 						.filter(prod -> prod.getProductId() == product.getProductId()).count();
 				if (countAvailableProducts == 0) {
-					throw new Exception("El product con id " + product.getProductId()
-							+ " no esta disponible para el cliente " + orderCustomer.getCustomer().getName());
+					throw new Exception("The product with id " + product.getProductId()
+							+ "  is not available for  '" + orderCustomer.getCustomer().getName() + " '");
 				}
 			}
 
@@ -124,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
 			orderCustomer.setOrderTime(new Date());
 
 			// Persis objects
-			_orderCustomerDao.saveOrderCustomer(orderCustomer);
+			_orderDAO.saveOrderCustomer(orderCustomer);
 
 		} catch (Exception e) {
 			return new Response(e.getMessage(), HttpStatus.BAD_REQUEST.value());
@@ -132,6 +118,16 @@ public class OrderServiceImpl implements OrderService {
 
 		return new Response("OK", HttpStatus.OK.value());
 
+	}
+	
+	/**
+	 * This method gets orders by Customer and dates
+	 */
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date start, Date end) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(end);
+		c.add(Calendar.DATE, 1);
+		return _orderDAO.getOrderByCustomerIdAndDate(customerId, start, c.getTime());
 	}
 
 }

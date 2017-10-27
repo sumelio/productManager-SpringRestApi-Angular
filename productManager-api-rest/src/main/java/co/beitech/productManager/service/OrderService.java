@@ -11,9 +11,8 @@ import co.beitech.productManager.model.Product;
 public interface OrderService {
 
 	public Response saveOrder(Order orderCustomer, List<Product> products);
+ 
 
-	public List<Order> getOrders();
-
-	public List<Order> getOrderByCustomerAndDate(int customerId, Date start, Date end);
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date start, Date end);
 
 }

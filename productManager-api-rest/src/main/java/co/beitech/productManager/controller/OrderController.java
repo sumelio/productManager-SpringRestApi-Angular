@@ -39,7 +39,7 @@ public class OrderController {
 	 *            This object contains an object Order and a list of Products
 	 *            Example:
 	 *            {
-	 *              "orderCustomer": { 
+	 *              "order": { 
 	 *                "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
 	 *                "customer": {
 	 *                  "customerId": 1
@@ -69,7 +69,7 @@ public class OrderController {
 	@PostMapping(path = "/order", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Response> createOrder(@RequestBody OrderCustomers orderCustomers) {
 
-		Response response = orderService.saveOrder(orderCustomers.getOrderCustomer(),
+		Response response = orderService.saveOrder(orderCustomers.getOrder(),
 				orderCustomers.getProducts());
 
 		return new ResponseEntity<Response>(response, HttpStatus.valueOf(response.getCode()));

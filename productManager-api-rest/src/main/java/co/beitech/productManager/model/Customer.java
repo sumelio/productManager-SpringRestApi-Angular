@@ -2,6 +2,9 @@ package co.beitech.productManager.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+ 
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,7 +16,8 @@ import java.util.List;
 @Table(name="customer") 
 @NamedQueries({
 	@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c"),
-	@NamedQuery(name="Customer.findById", query="select c from Customer  c where c.id = :id")
+	@NamedQuery(name="Customer.findById", query="select c from Customer  c where c.id = :id"),
+	@NamedQuery(name="Customer.findOrderByDates", query="select c from Customer  c where c.id = :id")
 }) 
 
 
@@ -40,9 +44,12 @@ public class Customer implements Serializable {
 			@JoinColumn(name="product_id")
 			}
 		)
-	private List<Product> products;
+	private List<Product> availableProducts;
 
- 
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="customer")
+	private List<Order> orders;
+	
 
 	public Customer() {
 	}
@@ -71,14 +78,23 @@ public class Customer implements Serializable {
 		this.name = name;
 	}
 
-	public List<Product> getProducts() {
-		return this.products;
+	public List<Product> getAvailableProducts() {
+		return this.availableProducts;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setAvailableProducts(List<Product> products) {
+		this.availableProducts = products;
+	}
+	public List<Order> getOrders() {
+		if(this.orders == null) {
+			this.orders = new ArrayList<Order>();
+		}
+		return this.orders;
 	}
 
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
  
  
 

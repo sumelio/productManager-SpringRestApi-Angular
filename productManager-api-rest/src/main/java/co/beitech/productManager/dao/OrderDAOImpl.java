@@ -32,17 +32,12 @@ public class OrderDAOImpl extends AbstractSession implements OrderDAO {
 
 	}
 
-	/**
-	 * Get all Order
-	 */
-	public List<Order> getOrderCustomers() {
-		return em.createNamedQuery("OrderCustomer.findAll", Order.class).getResultList();
-	}
-
+ 
+	
 	/**
 	 * Get all Order by Date
 	 */
-	public List<Order> getOrderCustomers(int customerId, Date frmDate, Date enDate) {
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date frmDate, Date enDate) {
 		
 	 	
 		
