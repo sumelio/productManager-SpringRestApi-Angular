@@ -1,19 +1,29 @@
 # productManager
 
 Este proyecto contiene dos componente:
-1. productManager-api-rest: Un servicio web que actuá como API Rest. 
-2. productManager-web: Una aplicación que exponé una pagina web la cual permite consultar la lista de ordenes asociadas a un cliente.
+1. productManager-api-rest:(backend)  API Rest . 
+2. productManager-web:(frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
+
+## Pagina web
+La pagina web esta implementada en html5 y usa Angular.
+
+1. Permite seleccionar un cliente y presentar las órdenes del último mes usando el método listar órdenes del servicio web.
+
+La aplicación esta desplegada en la siguiente URL:
+
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+
 
 ## API Rest
-La API Rest esta implementada en Spring y Hibernate. Exponen las siguientes funcionalidades:
+La API Rest esta implementada en Spring y Hibernate. Expone las siguientes funcionalidas:
 
 1. Consultar el listado de clientes.
-2. Permite crear una órden para un cliente con hasta máximo 5 productos. Teniendo en cuenta que sólo algunos productos están permitidos para un cliente.
-3. Permite listar las órdenes de un cliente por un rango de fechas.
-Por ejemplo está es la consulta con el metodo GET de la aplicación desplegado en una instancia de Amazon:
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
-Para mas detalle ver archivo PDF de la documentación de la API: 
+2. Permite crear una órden para un cliente con hasta máximo 5 productos. Teniendo en cuenta que sólo algunos productos están permitidos para un cliente.
+
+3. Permite listar las órdenes de un cliente por un rango de fechas.
+
+Para mas detalle ver ejemplos en la parte inferior y ver archivo PDF de la documentación de la API : 
 <object data="http://yoursite.com/the.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="http://yoursite.com/the.pdf">
         This browser does not support PDFs. Please download the PDF to view it: <a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/API%20REST.pdf">Download PDF</a>.</p>
@@ -21,11 +31,10 @@ Para mas detalle ver archivo PDF de la documentación de la API:
 </object>
 
 
-## Pagina web
-La pagina web esta implementada en html5 y usa Angular.
+La aplicación esta desplegada en una instancia de EC2 Amazon y esta es la URL:
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
-1. Permite seleccionar un cliente y presenta las órdenes del último mes usando el método listar órdenes del servicio web.
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+
 
 ## Diagrama entidad relación
 ![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/ER.png)
@@ -216,3 +225,7 @@ Content:
   }
 ]
  ```
+### Página web
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/web.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/web.png)
