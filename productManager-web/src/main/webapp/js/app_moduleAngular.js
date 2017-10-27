@@ -39,6 +39,7 @@ productManagerModule
 
 									}).error(
 									function(data) {
+										$scope.listOrders = null; 
 
 										swal("Oops, 'Data not found",
 												"'Orders not found!", "info")
