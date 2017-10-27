@@ -16,7 +16,7 @@ Por ejemplo está es la consulta con el metodo GET de la aplicación desplegado 
 Para mas detalle ver archivo PDF de la documentación de la API: 
 <object data="http://yoursite.com/the.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="http://yoursite.com/the.pdf">
-        This browser does not support PDFs. Please download the PDF to view it: <a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf">Download PDF</a>.</p>
+        This browser does not support PDFs. Please download the PDF to view it: <a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/API%20REST.pdf">Download PDF</a>.</p>
     </embed>
 </object>
 
@@ -28,7 +28,7 @@ La pagina web esta implementada en html5 y usa Angular.
 [http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
 
 ## Diagrama entidad relación
-![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png)
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/ER.png)
 
 ## Componentes
 ### Frontend: productManager-web
@@ -36,7 +36,7 @@ La pagina web esta implementada en html5 y usa Angular.
 ### Backend: productManager-api-rest
 - Spring, Hibernate
 
-![https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg](https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg)
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/Component%20Model.jpg)
 
 ## Ejemplos API Rest
 ### Create order

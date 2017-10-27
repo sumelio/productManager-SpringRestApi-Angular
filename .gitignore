@@ -7,5 +7,11 @@
 /productManager-api-rest/target/ 
 /productManager-web/target/
 productManager-web/target/
+/productManager-api-rest/.classpath
+/productManager-api-rest/.project
+/productManager-api-rest/.springBeans
+/productManager-api-web/.classpath
+/productManager-api-web/.project
+/productManager-api-web/.springBeans
 
 
