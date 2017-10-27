@@ -10,10 +10,244 @@ La API Rest esta implementada en Spring y Hibernate. Exponen las siguientes func
 1. Consultar el listado de clientes.
 2. Permite crear una órden para un cliente con hasta máximo 5 productos. Teniendo en cuenta que sólo algunos productos están permitidos para un cliente.
 3. Permite listar las órdenes de un cliente por un rango de fechas.
+Por ejemplo está la consulta con el metodo GET de la aplicación desplegado en una instancia de Amazon:
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
-NOTPA: Ver documento en PDF que descrite la mensajerica de cada metodo del API.
+Para mas detalle ver archivo PDF de la documentación de la API:
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf](https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf)
 
 ## Pagina web
 La pagina web esta implementada en html5 y usan Angular.
 
-1. Permite seleccionar un cliente y presente las órdenes del último mes usando el método listar órdenes del servicio web.
+1. Permite seleccionar un cliente y presenta las órdenes del último mes usando el método listar órdenes del servicio web.
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+
+## Diagrama entidad relación
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png)
+
+## Componentes
+![https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg](https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg)
+
+### Ejemplos API Rest
+## Create order
+URL  [/v1/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/order)
+
+Method  The request type  POST 
+
+Version 1.0
+
+Ejemplo:
+```
+http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/order
+```
+
+```
+{
+  "orderCustomer": { 
+    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
+    "customer": {
+      "customerId": 1
+    }
+  },
+  "products": [
+    {
+      "productId": 1
+    }, 
+        {
+      "productId": 1
+    },
+        {
+      "productId": 2
+    }
+  ]
+}
+```
+Success Response 
+The order was created.
+
+Code: 200 
+Content: 
+```
+{
+    "description": "OK",
+    "code": 200
+}
+```
+Error Response 
+-  Validate the maximum products
+Example: 
+Code: 400 BAD_REQUEST
+Content: 
+```
+{
+    "description": "La cantidad de productos debe ser menor o igual a 5",
+    "code": 400
+}
+```
+
+- Not available products by Customer
+Example: 
+Code: 400 BAD_REQUEST
+Content:
+```
+{
+    "description": "El producto con id 4 no está disponible para el cliente Manny Bharma",
+    "code": 400
+}
+```
+Sample Call 
+
+```
+>> "POST /productManager-api-rest/v1/order HTTP/1.1[\r][\n]"
+ >> "Accept-Encoding: gzip,deflate[\r][\n]"
+ >> "Content-Type: application/json[\r][\n]"
+ >> "Content-Length: 289[\r][\n]"
+ >> "Host: localhost:8080[\r][\n]"
+ >> "Connection: Keep-Alive[\r][\n]"
+ >> "User-Agent: Apache-HttpClient/4.1.1 (java 1.5)[\r][\n]"
+ >> "[\r][\n]"
+ >> "{[\n]"
+ >> "  "orderCustomer": {[\n]"
+ >> "    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",[\n]"
+ >> "    "customer": {[\n]"
+ >> "      "customerId": 1[\n]"
+ >> "    }[\n]"
+ >> "  },[\n]"
+ >> "  "products": [[\n]"
+ >> "    {[\n]"
+ >> "      "productId": 1[\n]"
+ >> "    },[\n]"
+ >> "    {[\n]"
+ >> "      "productId": 1[\n]"
+ >> "    },[\n]"
+ >> "    {[\n]"
+ >> "      "productId": 2[\n]"
+ >> "    },[\n]"
+ >> "    {[\n]"
+ >> "      "productId": 3[\n]"
+ >> "    }[\n]"
+ >> "  ][\n]"
+ >> "}"
+ << "HTTP/1.1 200 [\r][\n]"
+ << "Content-Type: application/json;charset=UTF-8[\r][\n]"
+ << "Transfer-Encoding: chunked[\r][\n]"
+ << "Date: Thu, 26 Oct 2017 21:22:00 GMT[\r][\n]"
+ << "[\r][\n]"
+ << "1f[\r][\n]"
+ << "{"description":"OK","code":200}"
+ << "0[\r][\n]"
+ << "[\r][\n]"
+ << "[\r][\n]"
+ 
+ ```
+
+
+## Get orders by Customer and Date
+URL  [customer/:id/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
+
+Method  The request type  GET 
+
+Version 1.0
+ ```
+http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26
+ ```
+ 
+- The order was found.
+
+Code: 200 
+Content: 
+
+ ```
+[
+  {
+    "orderId": 1,
+    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+    "orderTime": "2017-10-26",
+    "customer": {
+      "customerId": 1,
+      "email": "manny@Bharma.com",
+      "name": "Manny Bharma",
+      "products": [
+        {
+          "productId": 1,
+          "name": "Product A",
+          "price": 100.05
+        },
+        {
+          "productId": 2,
+          "name": "Product B",
+          "price": 200.1
+        },
+        {
+          "productId": 3,
+          "name": "Product C",
+          "price": 300.05
+        }
+      ]
+    },
+    "orderDetails": [
+      {
+        "orderDetailId": 1,
+        "price": 200.1,
+        "productDescription": "2 X Product A"
+      },
+      {
+        "orderDetailId": 2,
+        "price": 200.1,
+        "productDescription": "1 X Product B"
+      },
+      {
+        "orderDetailId": 3,
+        "price": 300.05,
+        "productDescription": "1 X Product C"
+      }
+    ],
+    "totalPrice": 700.25
+  },
+  {
+    "orderId": 2,
+    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+    "orderTime": "2017-10-26",
+    "customer": {
+      "customerId": 1,
+      "email": "manny@Bharma.com",
+      "name": "Manny Bharma",
+      "products": [
+        {
+          "productId": 1,
+          "name": "Product A",
+          "price": 100.05
+        },
+        {
+          "productId": 2,
+          "name": "Product B",
+          "price": 200.1
+        },
+        {
+          "productId": 3,
+          "name": "Product C",
+          "price": 300.05
+        }
+      ]
+    },
+    "orderDetails": [
+      {
+        "orderDetailId": 4,
+        "price": 100.05,
+        "productDescription": "1 X Product A"
+      },
+      {
+        "orderDetailId": 5,
+        "price": 200.1,
+        "productDescription": "1 X Product B"
+      },
+      {
+        "orderDetailId": 6,
+        "price": 600.1,
+        "productDescription": "2 X Product C"
+      }
+    ],
+    "totalPrice": 900.25
+  }
+]
+ ```
