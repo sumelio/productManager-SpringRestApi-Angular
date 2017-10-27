@@ -47,7 +47,16 @@ Para el caso del proyecto API REST:
 {LOCAL_DIRECTORY}/productManager-SpringRestApi-Angular/productManager-api-rest$ mvn install
 
 ```
-Es necesario configurar las siguientes propiedades:
+
+
+### Schema de base de datos Mysql
+Tambíen es necesario crear la base de datos y la configuración de la conexión esta en el properites:
+
+```
+{RELATIVE_DIRECTORY}/productManager-api-rest/src/main/resources/ProductManager.properties
+```
+
+Es necesario configurar las siguientes propiedades del archivo ProductManager.properties:
 
 ```
 datasource.driverClassName=com.mysql.jdbc.Driver
@@ -57,12 +66,6 @@ datasource.password=[PASSWORD]
 
 ```
 
-### Schema de base de datos Mysql
-Tambíen es necesario crear la base de datos y la configuración de la conexión esta en el properites:
-
-```
-{RELATIVE_DIRECTORY}/productManager-api-rest/src/main/resources/ProductManager.properties
-```
 Los scripts están al final de esta página.
 
 
