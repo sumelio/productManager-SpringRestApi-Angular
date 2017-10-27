@@ -1,8 +1,8 @@
-# productManager-SpringRestApi-Angular
+# productManager
 
 Este proyecto contiene dos componente:
-1. Un servicio web que actuá como una API Rest. 
-2. Una aplicación que exponé una pagina web la cual permite consultar la lista de ordenes asociadas a un cliente.
+1. productManager-api-rest: Un servicio web que actuá como API Rest. 
+2. productManager-web: Una aplicación que exponé una pagina web la cual permite consultar la lista de ordenes asociadas a un cliente.
 
 ## API Rest
 La API Rest esta implementada en Spring y Hibernate. Exponen las siguientes funcionalidades:
@@ -108,7 +108,7 @@ Content:
 
 
 ### Get orders by Customer and Date
-URL  [customer/:id/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
+URL  [/customer/:id/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
 Method  The request type  GET 
 
