@@ -62,7 +62,7 @@ http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-
 
 ```
 {
-  "orderCustomer": { 
+  "order": { 
     "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
     "customer": {
       "customerId": 1
@@ -73,11 +73,15 @@ http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-
       "productId": 1
     }, 
         {
-      "productId": 1
-    },
+      "productId": 2
+    }, 
         {
       "productId": 2
+    }, 
+        {
+      "productId": 3
     }
+    
   ]
 }
 ```
@@ -99,7 +103,7 @@ Code: 400 BAD_REQUEST
 Content: 
 ```
 {
-    "description": "La cantidad de productos debe ser menor o igual a 5",
+    "description": "The amount of products must be less or equal to 5",
     "code": 400
 }
 ```
@@ -110,7 +114,7 @@ Code: 400 BAD_REQUEST
 Content:
 ```
 {
-    "description": "El producto con id 4 no está disponible para el cliente Manny Bharma",
+    "description": "The product with id 4  is not available for  'Manny Bharma '",
     "code": 400
 }
 ``` 
@@ -132,98 +136,140 @@ Code: 200
 Content: 
 
  ```
-[
-  {
-    "orderId": 1,
-    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
-    "orderTime": "2017-10-26",
-    "customer": {
-      "customerId": 1,
-      "email": "manny@Bharma.com",
-      "name": "Manny Bharma",
-      "products": [
+{
+    "customerId": 1,
+    "email": "manny@Bharma.com",
+    "name": "Manny Bharma",
+    "availableProducts": [
         {
-          "productId": 1,
-          "name": "Product A",
-          "price": 100.05
+            "productId": 1,
+            "name": "Product A",
+            "price": 100.05
         },
         {
-          "productId": 2,
-          "name": "Product B",
-          "price": 200.1
+            "productId": 2,
+            "name": "Product B",
+            "price": 200.1
         },
         {
-          "productId": 3,
-          "name": "Product C",
-          "price": 300.05
+            "productId": 3,
+            "name": "Product C",
+            "price": 300.05
         }
-      ]
-    },
-    "orderDetails": [
-      {
-        "orderDetailId": 1,
-        "price": 200.1,
-        "productDescription": "2 X Product A"
-      },
-      {
-        "orderDetailId": 2,
-        "price": 200.1,
-        "productDescription": "1 X Product B"
-      },
-      {
-        "orderDetailId": 3,
-        "price": 300.05,
-        "productDescription": "1 X Product C"
-      }
     ],
-    "totalPrice": 700.25
-  },
-  {
-    "orderId": 2,
-    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
-    "orderTime": "2017-10-26",
-    "customer": {
-      "customerId": 1,
-      "email": "manny@Bharma.com",
-      "name": "Manny Bharma",
-      "products": [
+    "orders": [
         {
-          "productId": 1,
-          "name": "Product A",
-          "price": 100.05
+            "orderId": 1,
+            "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+            "orderTime": "2017-10-26",
+            "orderDetails": [
+                {
+                    "orderDetailId": 1,
+                    "price": 200.1,
+                    "productDescription": "2 X Product A"
+                },
+                {
+                    "orderDetailId": 2,
+                    "price": 200.1,
+                    "productDescription": "1 X Product B"
+                },
+                {
+                    "orderDetailId": 3,
+                    "price": 300.05,
+                    "productDescription": "1 X Product C"
+                }
+            ],
+            "totalPrice": 700.25
         },
         {
-          "productId": 2,
-          "name": "Product B",
-          "price": 200.1
+            "orderId": 2,
+            "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+            "orderTime": "2017-10-26",
+            "orderDetails": [
+                {
+                    "orderDetailId": 4,
+                    "price": 100.05,
+                    "productDescription": "1 X Product A"
+                },
+                {
+                    "orderDetailId": 5,
+                    "price": 200.1,
+                    "productDescription": "1 X Product B"
+                },
+                {
+                    "orderDetailId": 6,
+                    "price": 600.1,
+                    "productDescription": "2 X Product C"
+                }
+            ],
+            "totalPrice": 900.25
         },
         {
-          "productId": 3,
-          "name": "Product C",
-          "price": 300.05
+            "orderId": 5,
+            "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+            "orderTime": "2017-10-27",
+            "orderDetails": [
+                {
+                    "orderDetailId": 9,
+                    "price": 100.05,
+                    "productDescription": "1 X Product A"
+                },
+                {
+                    "orderDetailId": 10,
+                    "price": 200.1,
+                    "productDescription": "1 X Product B"
+                }
+            ],
+            "totalPrice": 300.15
+        },
+        {
+            "orderId": 6,
+            "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+            "orderTime": "2017-10-27",
+            "orderDetails": [
+                {
+                    "orderDetailId": 11,
+                    "price": 100.05,
+                    "productDescription": "1 X Product A"
+                },
+                {
+                    "orderDetailId": 12,
+                    "price": 400.2,
+                    "productDescription": "2 X Product B"
+                },
+                {
+                    "orderDetailId": 13,
+                    "price": 300.05,
+                    "productDescription": "1 X Product C"
+                }
+            ],
+            "totalPrice": 800.3
+        },
+        {
+            "orderId": 7,
+            "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+            "orderTime": "2017-10-27",
+            "orderDetails": [
+                {
+                    "orderDetailId": 14,
+                    "price": 100.05,
+                    "productDescription": "1 X Product A"
+                },
+                {
+                    "orderDetailId": 15,
+                    "price": 400.2,
+                    "productDescription": "2 X Product B"
+                },
+                {
+                    "orderDetailId": 16,
+                    "price": 300.05,
+                    "productDescription": "1 X Product C"
+                }
+            ],
+            "totalPrice": 800.3
         }
-      ]
-    },
-    "orderDetails": [
-      {
-        "orderDetailId": 4,
-        "price": 100.05,
-        "productDescription": "1 X Product A"
-      },
-      {
-        "orderDetailId": 5,
-        "price": 200.1,
-        "productDescription": "1 X Product B"
-      },
-      {
-        "orderDetailId": 6,
-        "price": 600.1,
-        "productDescription": "2 X Product C"
-      }
-    ],
-    "totalPrice": 900.25
-  }
-]
+    ]
+}
  ```
 ### Página web
 [http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
