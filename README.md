@@ -10,14 +10,19 @@ La API Rest esta implementada en Spring y Hibernate. Exponen las siguientes func
 1. Consultar el listado de clientes.
 2. Permite crear una órden para un cliente con hasta máximo 5 productos. Teniendo en cuenta que sólo algunos productos están permitidos para un cliente.
 3. Permite listar las órdenes de un cliente por un rango de fechas.
-Por ejemplo está la consulta con el metodo GET de la aplicación desplegado en una instancia de Amazon:
+Por ejemplo está es la consulta con el metodo GET de la aplicación desplegado en una instancia de Amazon:
 [http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
-Para mas detalle ver archivo PDF de la documentación de la API:
-![https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf](https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf)
+Para mas detalle ver archivo PDF de la documentación de la API: 
+<object data="http://yoursite.com/the.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="http://yoursite.com/the.pdf">
+        This browser does not support PDFs. Please download the PDF to view it: <a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/API%20REST.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 
 ## Pagina web
-La pagina web esta implementada en html5 y usan Angular.
+La pagina web esta implementada en html5 y usa Angular.
 
 1. Permite seleccionar un cliente y presenta las órdenes del último mes usando el método listar órdenes del servicio web.
 [http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
@@ -26,10 +31,15 @@ La pagina web esta implementada en html5 y usan Angular.
 ![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png)
 
 ## Componentes
+### Frontend: productManager-web
+- Angular, html
+### Backend: productManager-api-rest
+- Spring, Hibernate
+
 ![https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg](https://sumelio.github.io/productManager-SpringRestApi-Angular/Component%20Model.jpg)
 
-### Ejemplos API Rest
-## Create order
+## Ejemplos API Rest
+### Create order
 URL  [/v1/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/order)
 
 Method  The request type  POST 
@@ -94,55 +104,10 @@ Content:
     "description": "El producto con id 4 no está disponible para el cliente Manny Bharma",
     "code": 400
 }
-```
-Sample Call 
-
-```
->> "POST /productManager-api-rest/v1/order HTTP/1.1[\r][\n]"
- >> "Accept-Encoding: gzip,deflate[\r][\n]"
- >> "Content-Type: application/json[\r][\n]"
- >> "Content-Length: 289[\r][\n]"
- >> "Host: localhost:8080[\r][\n]"
- >> "Connection: Keep-Alive[\r][\n]"
- >> "User-Agent: Apache-HttpClient/4.1.1 (java 1.5)[\r][\n]"
- >> "[\r][\n]"
- >> "{[\n]"
- >> "  "orderCustomer": {[\n]"
- >> "    "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",[\n]"
- >> "    "customer": {[\n]"
- >> "      "customerId": 1[\n]"
- >> "    }[\n]"
- >> "  },[\n]"
- >> "  "products": [[\n]"
- >> "    {[\n]"
- >> "      "productId": 1[\n]"
- >> "    },[\n]"
- >> "    {[\n]"
- >> "      "productId": 1[\n]"
- >> "    },[\n]"
- >> "    {[\n]"
- >> "      "productId": 2[\n]"
- >> "    },[\n]"
- >> "    {[\n]"
- >> "      "productId": 3[\n]"
- >> "    }[\n]"
- >> "  ][\n]"
- >> "}"
- << "HTTP/1.1 200 [\r][\n]"
- << "Content-Type: application/json;charset=UTF-8[\r][\n]"
- << "Transfer-Encoding: chunked[\r][\n]"
- << "Date: Thu, 26 Oct 2017 21:22:00 GMT[\r][\n]"
- << "[\r][\n]"
- << "1f[\r][\n]"
- << "{"description":"OK","code":200}"
- << "0[\r][\n]"
- << "[\r][\n]"
- << "[\r][\n]"
- 
- ```
+``` 
 
 
-## Get orders by Customer and Date
+### Get orders by Customer and Date
 URL  [customer/:id/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
 
 Method  The request type  GET 
