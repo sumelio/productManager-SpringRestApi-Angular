@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import co.beitech.productManager.dao.CustomerDAO;
-import co.beitech.productManager.dao.OrderCustomerDAO;
+import co.beitech.productManager.dao.OrderDAO;
 import co.beitech.productManager.domain.Response;
 import co.beitech.productManager.model.Customer;
 import co.beitech.productManager.model.Order;
@@ -21,7 +21,7 @@ import co.beitech.productManager.model.OrderDetail;
 import co.beitech.productManager.model.Product;
 
 /**
- * This class contains the business logical
+ * Main business logical
  * 
  * @author freddy.lemus
  *
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Autowired
-	private OrderCustomerDAO _orderCustomerDao;
+	private OrderDAO _orderCustomerDao;
 
 	@Autowired
 	private CustomerDAO _customerDao;
@@ -46,14 +46,14 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * This method gets all order
 	 */
-	public List<Order> getOrderCustomers() {
+	public List<Order> getOrders() {
 		return _orderCustomerDao.getOrderCustomers();
 	}
 
 	/**
 	 * This method gets orders by date
 	 */
-	public List<Order> getOrderCustomers(int customerId, Date start, Date end) {
+	public List<Order> getOrderByCustomerAndDate(int customerId, Date start, Date end) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(end);
 		c.add(Calendar.DATE, 1);
@@ -62,15 +62,18 @@ public class OrderServiceImpl implements OrderService {
 
 	/**
 	 * This method create a order. Steps for create a order are the following:
-	 * First: Validate the maximum products Second: Validate the available products
-	 * by customer Third: Create order and order detail.
+	 *     First: Validate the maximum products 
+	 *     Second: Validate the available products by customer 
+	 *     Third: Create the order and the orders detail.
 	 * 
 	 */
-	public Response saveOrderCustomers(Order orderCustomer, List<Product> products) {
+	public Response saveOrder(Order orderCustomer, List<Product> products) {
 
 		try {
-            int maxProduct = new Integer(env.getProperty(MAX_PRODUCT));
-			// Validate max 5 products
+            
+			int maxProduct = new Integer(env.getProperty(MAX_PRODUCT));
+			
+            // Validate max 5 products
 			if (products.size() > maxProduct) {
 				throw new Exception("La cantidad de productos debe ser menor o igual a " + maxProduct);
 			}
@@ -78,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 			// validate exists customer
 			int customerId = orderCustomer.getCustomer().getCustomerId();
 
-			if (!_customerDao.isEmptyCustomerById(customerId)) {
+			if (!_customerDao.isExistsCustomerById(customerId)) {
 				Customer customer = _customerDao.getCustomerById(customerId);
 				orderCustomer.setCustomer(customer);
 			} else {

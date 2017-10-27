@@ -12,15 +12,9 @@ import co.beitech.productManager.model.Customer;
 
 @Repository
 @Transactional
-public class CustomerDAOImpl implements CustomerDAO {
+public class CustomerDAOImpl extends AbstractSession implements CustomerDAO {
 
-	private EntityManager em;
-
-	@PersistenceContext
-	public void setEntityManager(EntityManager em) {
-		this.em = em;
-	}
-
+ 
 	/**
 	 *  Get all customers
 	 */
@@ -28,7 +22,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return em.createNamedQuery("Customer.findAll", Customer.class).getResultList();
 	}
 	
-	public boolean isEmptyCustomerById(int customerId) {
+	/**
+	 *  Exists Customer
+	 */
+	public boolean isExistsCustomerById(int customerId) {
 		return em.createNamedQuery("Customer.findById", Customer.class).setParameter("id", customerId)
 				.getResultList().isEmpty();
 

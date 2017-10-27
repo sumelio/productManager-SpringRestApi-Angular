@@ -7,7 +7,7 @@ import co.beitech.productManager.model.Customer;
 import co.beitech.productManager.model.Order;
  
 
-public interface OrderCustomerDAO {
+public interface OrderDAO {
 	public void saveOrderCustomer(Order orderCustomer);
 	
 	public List<Order> getOrderCustomers();

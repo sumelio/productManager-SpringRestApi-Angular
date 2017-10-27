@@ -3,13 +3,12 @@ package co.beitech.productManager.dao;
 import java.util.List;
 
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.Order;
  
 
 public interface CustomerDAO {
 	public List<Customer> getCustomers();
 	public Customer getCustomerById(int customerId);
-	public boolean isEmptyCustomerById(int customerId);
+	public boolean isExistsCustomerById(int customerId);
 	
 
 }

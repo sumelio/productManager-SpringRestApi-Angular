@@ -23,7 +23,7 @@ import co.beitech.productManager.service.OrderService;
 /**
  * This class is a customer controller for API REST
  * 
- * @author falemus
+ * @author freddy.lemus
  *
  */
 @RestController
@@ -51,7 +51,9 @@ public class CustomerController {
 
 	/**
 	 * THis method get orders by Customer and date
-	 * 
+	 *  Example URL:
+	 *      http://hostname:port/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26
+	 *  
 	 * @param customerId
 	 *            Customer id
 	 * @param startDate
@@ -59,7 +61,7 @@ public class CustomerController {
 	 * @param endDate
 	 *            Date in format yyyy-MM-dd
 	 * @return  If exists order return HTTP 200 and list.
-	 *          If nothing order return 404, "Not Found"
+	 *          If Order not found 404, "Not Found"
 	 *           
 	 * @throws ParseException
 	 */
@@ -71,7 +73,7 @@ public class CustomerController {
 
 		ResponseEntity<List<Order>> responseEntity = null;
 
-		List<Order> listOrder = orderService.getOrderCustomers(customerId, startDate, endDate);
+		List<Order> listOrder = orderService.getOrderByCustomerAndDate(customerId, startDate, endDate);
 		if (!listOrder.isEmpty()) {
 			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.OK);
 		} else {
