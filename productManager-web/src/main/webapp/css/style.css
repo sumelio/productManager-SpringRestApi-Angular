@@ -58,9 +58,10 @@ tr:nth-child(even) {
 
  
 .header{ 
-		background-color: #ce1e28;
-		margin: auto;
+		background-color: #ce1e28; 
 		justify-content: center; 
+		color: white;
+		height: 100px;
 	
 }
 .btn-panel-big

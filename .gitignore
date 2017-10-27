@@ -10,8 +10,9 @@ productManager-web/target/
 /productManager-api-rest/.classpath
 /productManager-api-rest/.project
 /productManager-api-rest/.springBeans
-/productManager-api-web/.classpath
-/productManager-api-web/.project
-/productManager-api-web/.springBeans
+/productManager-web/.classpath
+/productManager-web/.project
+/productManager-web/.springBeans
+/productManager-web/.settings/
 
 

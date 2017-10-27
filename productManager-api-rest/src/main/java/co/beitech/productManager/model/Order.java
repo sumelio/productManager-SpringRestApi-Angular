@@ -23,6 +23,10 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 /**
  * The persistent class for the order_customer database table.
  * 
@@ -47,6 +51,7 @@ public class Order implements Serializable {
 	@Column(name = "order_time")
 	private Date orderTime;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -85,6 +90,7 @@ public class Order implements Serializable {
 		this.orderTime = orderTime;
 	}
 
+	@JsonIgnore
 	public Customer getCustomer() {
 		return this.customer;
 	}

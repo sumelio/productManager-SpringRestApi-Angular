@@ -35,13 +35,30 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
-	@Autowired
-	private OrderService orderService;
+ 
 
 	/**
 	 * This method gets all customers
 	 * 
-	 * @return
+	 * @return Contain JSON
+	 *         Example:
+	 *         [
+	 *           {
+ 	 *            "customerId": 1,
+	 *             "email": "manny@Bharma.com",
+	 *             "name": "Manny Bharma"
+	 *           },
+	 *           {
+	 *             "customerId": 2,
+	 *             "email": "alan@Briggs.com",
+	 *             "name": "Alan Briggs"
+	 *           },
+	 *           {
+	 *             "customerId": 3,
+	 *             "email": "mike@Simm.com",
+	 *             "name": "Mike Simm"
+	 *           }
+	 *         ]
 	 */
 	@GetMapping("/customer")
 	public ResponseEntity<List<Customer>> getCustomers() {
@@ -50,9 +67,12 @@ public class CustomerController {
 	}
 
 	/**
-	 * THis method get orders by Customer and date
+	 * This method gets orders by Customer and date
+	 * 
+	 * Http Method GET 
+	 * 
 	 *  Example URL:
-	 *      http://hostname:port/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26
+	 *      http://hostname:port/productManager-api-rest/v1/customer/{customerId}/order?startDate={startDate}&endDate={endDate}
 	 *  
 	 * @param customerId
 	 *            Customer id
@@ -60,24 +80,61 @@ public class CustomerController {
 	 *            Date in format yyyy-MM-dd
 	 * @param endDate
 	 *            Date in format yyyy-MM-dd
+	 *            
 	 * @return  If exists order return HTTP 200 and list.
 	 *          If Order not found 404, "Not Found"
+	 *          
+	 *          Example response JSON HTTP 200:
+	 *          
+	 *           {
+	 *             "customerId": 1,
+	 *             "email": "manny@Bharma.com",
+	 *             "name": "Manny Bharma",
+	 *             "orders": [
+	 *               {
+	 *                 "orderId": 1,
+	 *                 "deliveryAddress": "Adress",
+	 *                 "orderTime": "2017-10-26",
+	 *                 "orderDetails": [
+	 *                   {
+	 *                     "orderDetailId": 1,
+	 *                     "price": 300.15,
+	 *                     "productDescription": "3 X Product A"
+	 *                   }
+	 *                 ],
+	 *                 "totalPrice": 600.2
+	 *               },
+	 *               {
+	 *                 "orderId": 2,
+	 *                 "deliveryAddress": "15 Queens Park Road, W32 YYY, UK",
+	 *                 "orderTime": "2017-10-26",
+	 *                 "orderDetails": [
+	 *                   {
+	 *                     "orderDetailId": 3,
+	 *                     "price": 200.1,
+	 *                     "productDescription": "2 X Product A"
+	 *                   }
+	 *                 ],
+	 *                 "totalPrice": 400.2
+	 *               }
+	 *             ]
+	 *           }
 	 *           
 	 * @throws ParseException
 	 */
 	@GetMapping(value = "/customer/{customerId}/order", produces = "application/json")
-	public ResponseEntity<List<Order>> getOrder(@PathVariable(value = "customerId") int customerId,
+	public ResponseEntity<Customer> getOrder(@PathVariable(value = "customerId") int customerId,
 			@RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
 			@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
 			throws ParseException {
 
-		ResponseEntity<List<Order>> responseEntity = null;
+		ResponseEntity<Customer> responseEntity = null;
 
-		List<Order> listOrder = orderService.getOrderByCustomerAndDate(customerId, startDate, endDate);
-		if (!listOrder.isEmpty()) {
-			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.OK);
+		Customer customer = customerService.getCustomerOrderByAndDate(customerId, startDate, endDate);
+		if (!customer.getOrders().isEmpty()) {
+			responseEntity = new ResponseEntity<Customer>(customer, HttpStatus.OK);
 		} else {
-			responseEntity = new ResponseEntity<List<Order>>(listOrder, HttpStatus.NOT_FOUND);
+			responseEntity = new ResponseEntity<Customer>(customer, HttpStatus.NOT_FOUND);
 		}
 
 		return responseEntity;

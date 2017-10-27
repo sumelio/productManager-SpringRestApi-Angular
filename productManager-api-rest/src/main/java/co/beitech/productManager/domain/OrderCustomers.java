@@ -7,13 +7,15 @@ import co.beitech.productManager.model.Order;
 import co.beitech.productManager.model.Product;
 
 public class OrderCustomers {
-	private Order orderCustomer;
+	private Order order;
 	private List<Product> products;
-	public Order getOrderCustomer() {
-		return orderCustomer;
+ 
+	
+	public Order getOrder() {
+		return order;
 	}
-	public void setOrderCustomer(Order orderCustomer) {
-		this.orderCustomer = orderCustomer;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	public List<Product> getProducts() {
 		if(this.products == null) {

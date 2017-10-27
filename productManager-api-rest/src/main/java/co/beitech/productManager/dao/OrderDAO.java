@@ -9,8 +9,7 @@ import co.beitech.productManager.model.Order;
 
 public interface OrderDAO {
 	public void saveOrderCustomer(Order orderCustomer);
-	
-	public List<Order> getOrderCustomers();
-	public List<Order> getOrderCustomers(int customerId, Date start, Date end);
+	 
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date frmDate, Date enDate);
 
 }
