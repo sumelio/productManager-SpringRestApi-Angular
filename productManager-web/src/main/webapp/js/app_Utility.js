@@ -1,7 +1,9 @@
 /**
  * Utility functions javascript
- * 
+ *
+ * @author Freddy.Lemus
  */
+
 
 
 /**
@@ -26,5 +28,6 @@ function monthLast(dateNow){
     var timeNow = dateNow.getTime();
     var days = 30;
     dateBefore.setTime( parseInt(  timeNow - (days * miliseconds )) );
+    
    return dateBefore;
 }

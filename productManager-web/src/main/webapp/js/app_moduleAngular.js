@@ -1,5 +1,8 @@
 /**
  * Angular Module javascript
+ * 
+ * @Author Freddy.lemus
+ * 
  */
 var productManagerModule = angular.module('beitechApp', [ 'ngAnimate' ]);
 
@@ -13,33 +16,35 @@ productManagerModule
 
 					// Get dates
 					let dateNow = new Date();
-					$scope.endDate = dateNow.yyyymmdd(1);
+					$scope.fromDate = dateNow.yyyymmdd(1);
 
-					let dateBefore = monthLast(dateNow)
-					$scope.beginDate = dateBefore.yyyymmdd(1);
+					let dateMonthBefore = monthLast(dateNow)
+					$scope.untilDate = dateMonthBefore.yyyymmdd(1);
 
-					// get all Customer and fill combo
+					// Function: Get all Customer and fill select
 					$http.get(urlBase + '/customer').success(function(data) {
 						$scope.customers = data;
 
 					});
 
-					// get Order by customer and dates
+					// Function: Get Order by customer and dates
 					$scope.findOrders = function findOrders() {
 
 						if ($scope.customerSelect > 0) {
 							$http.get(
 									urlBase + '/customer/'
 											+ $scope.customerSelect
-											+ '/order?startDate='
-											+ $scope.beginDate + '&endDate='
-											+ $scope.endDate).success(
+											+ '/order?fromDate='
+											+ $scope.untilDate + '&untilDate='
+											+ $scope.fromDate
+								 ).success(
 									function(data) {
 										$scope.listOrders = data.orders;
 
-									}).error(
+									}
+								 ).error(
 									function(data) {
-										$scope.listOrders = null; 
+										$scope.listOrders = null;
 
 										swal("Oops, 'Data not found",
 												"'Orders not found!", "info")
@@ -48,7 +53,7 @@ productManagerModule
 						} else {
 
 							swal(
-									"Oops, 'Customer name is required",
+									"'Customer name is required",
 									"'Insufficient Data! Please provide values for Customer name!",
 									"error")
 						}
