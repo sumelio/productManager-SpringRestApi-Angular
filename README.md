@@ -5,7 +5,7 @@ Este proyecto contiene dos componente:
 2. productManager-web:(frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
 
 ## Pagina web
-La pagina web esta implementada en html5 y usa Angular.
+La pagina web esta implementada en html y usa Angular.
 
 1. Permite seleccionar un cliente y presentar las órdenes del último mes usando el método listar órdenes del servicio web.
 
@@ -32,7 +32,7 @@ Para mas detalle ver ejemplos en la parte inferior y ver archivo PDF de la docum
 
 
 La aplicación esta desplegada en una instancia de EC2 Amazon y esta es la URL:
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
+[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 ## Instalación y despliegue 
 ### Generación de WAR
@@ -101,7 +101,7 @@ http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-
       "customerId": 1
     }
   },
-  "products": [
+  "orderProducts": [
     {
       "productId": 1
     }, 
@@ -154,13 +154,13 @@ Content:
 
 
 ### Get orders by Customer and Date
-URL  [/customer/:id/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26)
+URL  [/customer/:id/order?fromDate=:fromDate&untilDate=:fromDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 Method  The request type  GET 
 
 Version 1.0
  ```
-http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?startDate=2017-09-26&endDate=2017-10-26
+http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26
  ```
  
 - The order was found.
