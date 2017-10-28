@@ -1,6 +1,6 @@
 package co.beitech.productManager.service;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 import co.beitech.productManager.dao.CustomerDAO;
 import co.beitech.productManager.model.Customer;
 
+/**
+ * Simple Customer service
+ * 
+ * @author Freddy.Lemus
+ *
+ */
 @Service("customerService")
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
@@ -20,13 +26,18 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAO _customerDao;
 
 	/**
-	 * Service has business logical
+	 * Instance order business logical
+	 * 
+	 * 
 	 */
 	@Autowired
 	private OrderService orderService;
+	
+	
 
 	/**
-	 * This method only gets customer information, without order
+	 * This method  gets customer information, without order
+	 * 
 	 */
 	public List<Customer> getCustomers() {
 		List<Customer> listCustomer = _customerDao.getCustomers();
@@ -34,10 +45,20 @@ public class CustomerServiceImpl implements CustomerService {
 		return _customerDao.getCustomers();
 	}
 
+	
 	/**
-	 * This method gets a  customer orders list by date
+	 * This method gets a  customer orders list by date range
+	 * 
+	 * @param customerId customer identifier
+	 * 
+	 * @param startDate from date 
+	 * 
+	 * @param endDate until date
+	 * 
+	 * @return Customer Customer object  
+	 *  
 	 */
-	public Customer getCustomerOrderByAndDate(int customerId, Date start, Date end) {
+	public Customer getCustomerOrderByAndDate(int customerId, LocalDate start, LocalDate end) {
 
 		Customer customer = new Customer();
 

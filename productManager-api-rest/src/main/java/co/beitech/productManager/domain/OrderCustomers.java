@@ -6,29 +6,34 @@ import java.util.List;
 import co.beitech.productManager.model.Order;
 import co.beitech.productManager.model.Product;
 
+/**
+ * 
+ * Simple POJO in order to contain order and orderProducts
+ * 
+ * @author Freddy.Lemus
+ *
+ */
 public class OrderCustomers {
 	private Order order;
-	private List<Product> products;
- 
-	
+	private List<Product> orderProducts;
+
 	public Order getOrder() {
 		return order;
 	}
+
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	public List<Product> getProducts() {
-		if(this.products == null) {
-			this.products = new ArrayList<Product>();
-		}
-		return this.products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-	
-	
 
- 
+	public List<Product> getOrderProducts() {
+		if (this.orderProducts == null) {
+			this.orderProducts = new ArrayList<Product>();
+		}
+		return this.orderProducts;
+	}
+
+	public void setOrderProducts(List<Product> products) {
+		this.orderProducts = products;
+	}
 
 }

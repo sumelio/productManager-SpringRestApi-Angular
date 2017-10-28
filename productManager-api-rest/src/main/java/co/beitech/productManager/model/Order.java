@@ -60,7 +60,7 @@ public class Order implements Serializable {
 	private List<OrderDetail> orderDetails;
 	
 	@Transient
-	private BigDecimal totalPrice;
+	private BigDecimal totalPriceOrder;
 
 	public Order() {
 	}
@@ -127,10 +127,10 @@ public class Order implements Serializable {
 	/**
 	 * Sum of the all prices orderDetail
 	 * 
-	 * @return
+	 * @return BigDecimal total
 	 */
 	
-	public BigDecimal getTotalPrice() {
+	public BigDecimal getTotalPriceOrder() {
 		BigDecimal totalPrice = this.getOrderDetails().
 				stream()
 				   .map(OrderDetail::getPrice)
@@ -141,8 +141,8 @@ public class Order implements Serializable {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotalPriceOrder(BigDecimal totalPrice) {
+		this.totalPriceOrder = totalPrice;
 	}
 	
 	

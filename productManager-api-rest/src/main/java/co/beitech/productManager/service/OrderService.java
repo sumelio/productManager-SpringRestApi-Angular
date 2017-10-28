@@ -1,5 +1,6 @@
 package co.beitech.productManager.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface OrderService {
 	public Response saveOrder(Order orderCustomer, List<Product> products);
  
 
-	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date start, Date end);
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, LocalDate start, LocalDate end);
 
 }

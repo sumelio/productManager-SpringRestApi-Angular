@@ -1,5 +1,6 @@
 package co.beitech.productManager.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface CustomerService  {
 	
 	public List<Customer> getCustomers();
 	
-	public Customer getCustomerOrderByAndDate(int customerId, Date start, Date end);
+	public Customer getCustomerOrderByAndDate(int customerId, LocalDate start, LocalDate end);
 	
 
 }

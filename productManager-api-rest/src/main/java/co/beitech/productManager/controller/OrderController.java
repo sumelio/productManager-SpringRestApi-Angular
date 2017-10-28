@@ -15,7 +15,7 @@ import co.beitech.productManager.service.OrderService;
 
 /**
  * 
- * This class is a order controller for API REST.
+ * This class is an order controller for API REST.
  * 
  * @author freddy.lemus
  *
@@ -24,20 +24,30 @@ import co.beitech.productManager.service.OrderService;
 @RequestMapping(value = "/v1")
 public class OrderController {
 
+	
+	
 	static Logger log = Logger.getLogger(OrderController.class.getName());
 
+	
+	
 	/**
 	 * Service has business logical
 	 */
 	@Autowired
 	private OrderService orderService; 
+	
+	
 
 	/**
-	 * This method create an order
+	 * This method creates an order
 	 * 
-	 * @param orderCustomers
+	 * @param OrderCustomers Object contains Order and OrderProducts
+	 * 
 	 *            This object contains an object Order and a list of Products
-	 *            Example:
+	 *            
+	 *            
+	 *            Request example:
+	 *            
 	 *            {
 	 *              "order": { 
 	 *                "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
@@ -45,7 +55,7 @@ public class OrderController {
 	 *                  "customerId": 1
 	 *                }
 	 *              },
-	 *              "products": [
+	 *              "orderProducts": [
 	 *                {
 	 *                  "productId": 1
 	 *                }, 
@@ -59,7 +69,8 @@ public class OrderController {
 	 *            }
 	 * 
 	 * @return ResponseEntity Return code and description. 
-	 *    Example:
+	 *   
+	 *    Response example :
 	 *    
 	 *    {
 	 *        "description": "OK",
@@ -70,7 +81,7 @@ public class OrderController {
 	public ResponseEntity<Response> createOrder(@RequestBody OrderCustomers orderCustomers) {
 
 		Response response = orderService.saveOrder(orderCustomers.getOrder(),
-				orderCustomers.getProducts());
+				orderCustomers.getOrderProducts());
 
 		return new ResponseEntity<Response>(response, HttpStatus.valueOf(response.getCode()));
 

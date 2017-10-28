@@ -1,7 +1,7 @@
 package co.beitech.productManager.controller;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.beitech.productManager.model.Customer;
-import co.beitech.productManager.model.Order;
 import co.beitech.productManager.service.CustomerService;
-import co.beitech.productManager.service.OrderService;
 
 /**
- * This class is a customer controller for API REST
+ * Simple Customer controller for API REST version 1
  * 
  * @author freddy.lemus
  *
@@ -39,6 +37,8 @@ public class CustomerController {
 
 	/**
 	 * This method gets all customers
+	 * 
+	 * Method GET HTTP
 	 * 
 	 * @return Contain JSON
 	 *         Example:
@@ -69,22 +69,27 @@ public class CustomerController {
 	/**
 	 * This method gets orders by Customer and date
 	 * 
-	 * Http Method GET 
+	 * Method GET HTTP
 	 * 
-	 *  Example URL:
-	 *      http://hostname:port/productManager-api-rest/v1/customer/{customerId}/order?startDate={startDate}&endDate={endDate}
+	 *  URL:
+	 *  http://hostname:port/app/v1/customer/{customerId}/order?startDate={fromDate}&endDate={untilDate}
 	 *  
 	 * @param customerId
 	 *            Customer id
-	 * @param startDate
-	 *            Date in format yyyy-MM-dd
-	 * @param endDate
-	 *            Date in format yyyy-MM-dd
 	 *            
-	 * @return  If exists order return HTTP 200 and list.
-	 *          If Order not found 404, "Not Found"
+	 * @param fromDate
+	 *            Start date in format yyyy-MM-dd
+	 *            
+	 * @param untilDate
+	 *             End date in format yyyy-MM-dd
+	 *            
+	 * @return  Customer ResponseEntity
+	 *           
+	 *          If exists order return HTTP 200 and list
+	 *          .
+	 *          If Order not found return 404 "Not Found"
 	 *          
-	 *          Example response JSON HTTP 200:
+	 *          Example: response JSON HTTP 200:
 	 *          
 	 *           {
 	 *             "customerId": 1,
@@ -121,17 +126,19 @@ public class CustomerController {
 	 *           }
 	 *           
 	 * @throws ParseException
+	 * 
 	 */
 	@GetMapping(value = "/customer/{customerId}/order", produces = "application/json")
 	public ResponseEntity<Customer> getOrder(@PathVariable(value = "customerId") int customerId,
-			@RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-			@RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate)
+			@RequestParam(value = "fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+			@RequestParam(value = "untilDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate untilDate)
 			throws ParseException {
 
-		ResponseEntity<Customer> responseEntity = null;
+		ResponseEntity<Customer> responseEntity;
 
-		Customer customer = customerService.getCustomerOrderByAndDate(customerId, startDate, endDate);
-		if (!customer.getOrders().isEmpty()) {
+		Customer customer = customerService.getCustomerOrderByAndDate(customerId, fromDate, untilDate);
+		
+		if ( ! customer.getOrders().isEmpty()) {
 			responseEntity = new ResponseEntity<Customer>(customer, HttpStatus.OK);
 		} else {
 			responseEntity = new ResponseEntity<Customer>(customer, HttpStatus.NOT_FOUND);

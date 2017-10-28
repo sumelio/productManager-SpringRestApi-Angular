@@ -1,7 +1,7 @@
 package co.beitech.productManager.service;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +21,9 @@ import co.beitech.productManager.model.OrderDetail;
 import co.beitech.productManager.model.Product;
 
 /**
- * Main business logical
+ * 
+ * Service class contains business logical Order
+ * 
  * 
  * @author freddy.lemus
  *
@@ -30,12 +32,11 @@ import co.beitech.productManager.model.Product;
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
+	private static final String MAX_PRODUCT = "max.products";
+	
 	
 	@Autowired
 	private Environment env;
-
-	private static final String MAX_PRODUCT = "max.products";
-	
 	
 	@Autowired
 	private OrderDAO _orderDAO;
@@ -46,25 +47,38 @@ public class OrderServiceImpl implements OrderService {
  
 
 	/**
-	 * This method creates an order. 
+	 * This method creates an order.
+	 * 
 	 * Steps to create an order are as follows:
-	 *     First: Validate the maximum products 
-	 *     Second: Validate the available products by customer 
-	 *     Third: Create the order and the orders detail.
+	 * <ul>
+	 * <li>Validate the maximum amount of products</li>
+	 * <li>Validate the products available by customer</li>
+	 * <li>Create the order and the orders detail</li>
+	 * </ul>
+	 * 
+	 * @param orderCustomer
+	 *            Customer order
+	 * 
+	 * @param orderProducts
+	 *            list of order products
+	 * 
+	 * @return Response Result operation
+	 * 
 	 * 
 	 */
-	public Response saveOrder(Order orderCustomer, List<Product> products) {
+	public Response saveOrder(Order orderCustomer, List<Product> orderProducts) {
 
 		try {
             
 			int maxProduct = new Integer(env.getProperty(MAX_PRODUCT));
 			
-            // Validate max 5 products
-			if (products.size() > maxProduct) {
+            /* validate the maximum amount of products */
+			if (orderProducts.size() > maxProduct) {
 				throw new Exception("The amount of products must be less or equal to " + maxProduct);
 			}
 
-			// validate exists customer
+			
+			/*  Validate customer */
 			int customerId = orderCustomer.getCustomer().getCustomerId();
 
 			if (_customerDao.isExistsCustomerById(customerId)) {
@@ -74,16 +88,22 @@ public class OrderServiceImpl implements OrderService {
 				throw new Exception("The customer with ID " + customerId + " does not exist");
 			}
 
+			
+			
 			List<Product> listAvailableProduct = orderCustomer.getCustomer().getAvailableProducts();
 
-			// Validate: Available products by Customer
-			for (Product product : products) {
+			/*  Validate the products available by customer */
+			for (Product orderProduct : orderProducts) {
 
 				// Count products found in listAvailableProduct
-				long countAvailableProducts = listAvailableProduct.stream()
-						.filter(prod -> prod.getProductId() == product.getProductId()).count();
+				long countAvailableProducts = listAvailableProduct
+						.stream()
+						.filter(availableProduct -> 
+						            availableProduct.getProductId() == orderProduct.getProductId())
+						.count();
+				
 				if (countAvailableProducts == 0) {
-					throw new Exception("The product with id " + product.getProductId()
+					throw new Exception("The product with id " + orderProduct.getProductId()
 							+ "  is not available for  '" + orderCustomer.getCustomer().getName() + " '");
 				}
 			}
@@ -91,26 +111,36 @@ public class OrderServiceImpl implements OrderService {
 			// Create OrderDetails
 			listAvailableProduct.forEach(availableProduct -> {
 
-				// Count products by id
-				long countProductById = products.stream()
-						.filter(prod -> prod.getProductId() == availableProduct.getProductId()).count();
+				// Group by products and count products by id
+				Long countProductById = orderProducts
+						.stream()
+						.filter(orderProduct -> 
+						          orderProduct.getProductId() == availableProduct.getProductId())
+						.count();
+				
 				if (countProductById > 0) {
+					
 					OrderDetail orderDetail = new OrderDetail();
 
-					// calculate total price by orderDetail
+					// Calculate total price by orderDetail
 					BigDecimal totalOrderDetail = availableProduct.getPrice()
-							.multiply(new BigDecimal(countProductById));
+							.multiply(BigDecimal.valueOf( countProductById));
+					
 					orderDetail.setPrice(totalOrderDetail);
 					orderDetail.setProductescription(countProductById + " X " + availableProduct.getName());
 					orderDetail.setOrder(orderCustomer);
 					orderCustomer.getOrderDetails().add(orderDetail);
+					
 				}
 			});
+			
 			// Set date
 			orderCustomer.setOrderTime(new Date());
 
-			// Persis objects
+			
+			// Persist objects
 			_orderDAO.saveOrderCustomer(orderCustomer);
+			
 
 		} catch (Exception e) {
 			return new Response(e.getMessage(), HttpStatus.BAD_REQUEST.value());
@@ -119,15 +149,20 @@ public class OrderServiceImpl implements OrderService {
 		return new Response("OK", HttpStatus.OK.value());
 
 	}
-	
+
 	/**
 	 * This method gets orders by Customer and dates
+	 * 
+	 * @param fromDate
+	 * 
+	 * @param untilDate
+	 * 
+	 * @return List<Order>
+	 * 
 	 */
-	public List<Order> getOrderByCustomerIdAndDate(int customerId, Date start, Date end) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(end);
-		c.add(Calendar.DATE, 1);
-		return _orderDAO.getOrderByCustomerIdAndDate(customerId, start, c.getTime());
+	public List<Order> getOrderByCustomerIdAndDate(int customerId, LocalDate fromDate, LocalDate untilDate) {
+		
+		return _orderDAO.getOrderByCustomerIdAndDate(customerId, fromDate, untilDate.plusDays(1));
 	}
 
 }
