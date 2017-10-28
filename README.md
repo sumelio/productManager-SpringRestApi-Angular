@@ -44,7 +44,7 @@ mvn install
 Para el caso del proyecto API REST:
 
 ```
-{LOCAL_DIRECTORY}/productManager-SpringRestApi-Angular/productManager-api-rest$ mvn install
+{RELATIVE_DIRECTORY}/productManager-SpringRestApi-Angular/productManager-api-rest$ mvn install
 
 ```
 
@@ -58,7 +58,7 @@ Tambíen es necesario crear la base de datos y la configuración de la conexión
 
 Es necesario configurar las siguientes propiedades del archivo ProductManager.properties:
 
-```
+```properties
 datasource.driverClassName=com.mysql.jdbc.Driver
 datasource.url=jdbc:mysql://[host_name]:[port]/beitech_db
 datasource.username=[USER]
@@ -70,7 +70,9 @@ Los scripts están al final de esta página.
 
 
 ## Diagrama entidad relación
+
 ![https://sumelio.github.io/productManager-SpringRestApi-Angular/ER.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/ER.png)
+
 
 ## Componentes
 ### Frontend: productManager-web
@@ -93,7 +95,7 @@ Ejemplo:
 http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/order
 ```
 
-```
+```json
 {
   "order": { 
     "deliveryAddress": "15 Queens Park Road, W32 YYY, UK", 
@@ -123,7 +125,7 @@ The order was created.
 
 Code: 200 
 Content: 
-```
+```json
 {
     "description": "OK",
     "code": 200
@@ -134,7 +136,7 @@ Error Response
 Example: 
 Code: 400 BAD_REQUEST
 Content: 
-```
+```json
 {
     "description": "The amount of products must be less or equal to 5",
     "code": 400
@@ -145,7 +147,7 @@ Content:
 Example: 
 Code: 400 BAD_REQUEST
 Content:
-```
+```json
 {
     "description": "The product with id 4  is not available for  'Manny Bharma '",
     "code": 400
@@ -154,12 +156,12 @@ Content:
 
 
 ### Get orders by Customer and Date
-URL  [/customer/:id/order?fromDate=:fromDate&untilDate=:untilDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
+URL  [/v1/customer/:id/order?fromDate=:fromDate&untilDate=:untilDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 Method  The request type  GET 
 
 Version 1.0
- ```
+ ```json
 http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26
  ```
  
@@ -168,7 +170,7 @@ http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-
 Code: 200 
 Content: 
 
- ```
+ ```json
 {
     "customerId": 1,
     "email": "manny@Bharma.com",
@@ -313,7 +315,7 @@ Content:
 
 ### Script base de datos Mysql
  
- ```
+ ```sql
 create database beitech_db;
  
 use beitech_db;
