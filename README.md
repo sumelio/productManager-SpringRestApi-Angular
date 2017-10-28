@@ -1,8 +1,8 @@
 # productManager
 
 Este proyecto contiene dos componente:
-1. productManager-api-rest:(backend)  API Rest . 
-2. productManager-web:(frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
+1. productManager-api-rest: (backend)  API Rest . 
+2. productManager-web: (frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
 
 ## Pagina web
 La pagina web esta implementada en html y usa Angular.
@@ -24,8 +24,12 @@ La API Rest esta implementada en Spring y Hibernate. Expone las siguientes funci
 3. Permite listar las órdenes de un cliente por un rango de fechas.
 
 Para mas detalle ver ejemplos en la parte inferior y ver archivo PDF de la documentación de la API : 
+<p><a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/API%20REST.pdf">API REST.pdf</a>
+<p>
+
+
 <object data="http://yoursite.com/the.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="http://yoursite.com/the.pdf">
+    <embed src="https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/API%20REST.pdf">
         This browser does not support PDFs. Please download the PDF to view it: <a href="https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/API%20REST.pdf">Download PDF</a>.</p>
     </embed>
 </object>
@@ -50,7 +54,7 @@ Para el caso del proyecto API REST:
 
 
 ### Schema de base de datos Mysql
-Tambíen es necesario crear la base de datos y la configuración de la conexión esta en el properites:
+También es necesario crear la base de datos y la configuración de la conexión esta en el properites:
 
 ```
 {RELATIVE_DIRECTORY}/productManager-api-rest/src/main/resources/ProductManager.properties
