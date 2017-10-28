@@ -154,7 +154,7 @@ Content:
 
 
 ### Get orders by Customer and Date
-URL  [/customer/:id/order?fromDate=:fromDate&untilDate=:fromDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
+URL  [/customer/:id/order?fromDate=:fromDate&untilDate=:untilDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 Method  The request type  GET 
 
