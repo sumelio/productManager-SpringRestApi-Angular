@@ -42,12 +42,12 @@ La aplicación esta desplegada en una instancia de EC2 Amazon y esta es la URL:
 ### Generación de WAR
 Los proyectos usan Maven para la gestión de librerías o dependencias por lo tanto para crear el war es necesario ejecutar el comando:
 
-```
+```bash 
 mvn install
 ```
 Para el caso del proyecto API REST:
 
-```
+```bash
 {RELATIVE_DIRECTORY}/productManager-SpringRestApi-Angular/productManager-api-rest$ mvn install
 
 ```
