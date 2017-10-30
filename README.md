@@ -1,8 +1,8 @@
 # productManager
 
 Este proyecto contiene dos componente:
-1. productManager-api-rest: (backend)  API Rest . 
-2. productManager-web: (frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
+1. *productManager-api-rest:* (backend)  API Rest . 
+2. *productManager-web:* (frontend) Una aplicación que exponé una página web la cual permite consultar la lista de ordenes asociadas a un cliente en el último mes.
 
 ## Pagina web
 La pagina web esta implementada en html y usa Angular.
@@ -53,10 +53,10 @@ Para el caso del proyecto API REST:
 ```
 
 
-### Schema de base de datos Mysql
+### Configuración de conexión hacia la base de datos Mysql
 También es necesario crear la base de datos y la configuración de la conexión esta en el properites:
 
-```
+```bash
 {RELATIVE_DIRECTORY}/productManager-api-rest/src/main/resources/ProductManager.properties
 ```
 
@@ -81,6 +81,7 @@ Los scripts están al final de esta página.
 ## Componentes
 ### Frontend: productManager-web
 - Angular, html
+
 ### Backend: productManager-api-rest
 - Spring, Hibernate
 
