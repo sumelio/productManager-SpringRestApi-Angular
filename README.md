@@ -11,7 +11,7 @@ La pagina web esta implementada en html y usa Angular.
 
 La aplicación esta desplegada en la siguiente URL:
 
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+[http://18.216.163.175:8080/productManager-web/](http://18.216.163.175:8080/productManager-web/)
 
 
 ## API Rest
@@ -36,7 +36,7 @@ Para mas detalle ver ejemplos en la parte inferior y ver archivo PDF de la docum
 
 
 La aplicación esta desplegada en una instancia de EC2 Amazon y esta es la URL:
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
+[http://18.216.163.175:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26](http://18.216.163.175:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 ## Instalación y despliegue 
 ### Generación de WAR
@@ -89,7 +89,7 @@ Los scripts están al final de esta página.
 
 ## Ejemplos API Rest
 ### Create order
-URL  [/v1/order](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/order)
+URL  [/v1/order]http://18.216.163.175:8080/productManager-api-rest/v1/order)
 
 Method  The request type  POST 
 
@@ -161,7 +161,7 @@ Content:
 
 
 ### Get orders by Customer and Date
-URL  [/v1/customer/:id/order?fromDate=:fromDate&untilDate=:untilDate](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
+URL  [/v1/customer/:id/order?fromDate=:fromDate&untilDate=:untilDate](http://18.216.163.175:8080/productManager-api-rest/v1/customer/1/order?fromDate=2017-09-26&untilDate=2017-10-26)
 
 Method  The request type  GET 
 
@@ -312,7 +312,7 @@ Content:
 }
  ```
 ### Página web
-[http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/](http://ec2-52-14-66-207.us-east-2.compute.amazonaws.com:8080/productManager-web/)
+[http://18.216.163.175:8080/productManager-web/](http://18.216.163.175:8080/productManager-web/)
 
 ![https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/web.png](https://sumelio.github.io/productManager-SpringRestApi-Angular/resources/web.png)
 
